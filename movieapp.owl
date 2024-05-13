@@ -1,0 +1,509 @@
+@prefix : <http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/> .
+
+<http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/hasActor
+:hasActor rdf:type owl:ObjectProperty ;
+          rdfs:domain :movie ;
+          rdfs:range :person .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/hasDirector
+:hasDirector rdf:type owl:ObjectProperty ;
+             rdfs:domain :movie ;
+             rdfs:range :person .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/hasWriter
+:hasWriter rdf:type owl:ObjectProperty ;
+           rdfs:domain :movie ;
+           rdfs:range :person .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/isActorOf
+:isActorOf rdf:type owl:ObjectProperty ;
+           rdfs:domain :person ;
+           rdfs:range :movie .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/isDirectorOf
+:isDirectorOf rdf:type owl:ObjectProperty ;
+              rdfs:domain :person ;
+              rdfs:range :movie .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/isWriterOf
+:isWriterOf rdf:type owl:ObjectProperty ;
+            rdfs:domain :person ;
+            rdfs:range :movie .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/movie_country
+:movie_country rdf:type owl:DatatypeProperty ;
+               rdfs:domain :movie ;
+               rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/movie_genre
+:movie_genre rdf:type owl:DatatypeProperty ;
+             rdfs:domain :movie ;
+             rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/movie_language
+:movie_language rdf:type owl:DatatypeProperty ;
+                rdfs:domain :movie ;
+                rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/movie_title
+:movie_title rdf:type owl:DatatypeProperty ;
+             rdfs:domain :movie ;
+             rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/movie_year
+:movie_year rdf:type owl:DatatypeProperty ,
+                     owl:FunctionalProperty ;
+            rdfs:domain :movie ;
+            rdfs:range xsd:nonNegativeInteger .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/person_age
+:person_age rdf:type owl:DatatypeProperty ,
+                     owl:FunctionalProperty ;
+            rdfs:domain :person ;
+            rdfs:range xsd:nonNegativeInteger .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/person_gender
+:person_gender rdf:type owl:DatatypeProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain :person ;
+               rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/person_name
+:person_name rdf:type owl:DatatypeProperty ,
+                      owl:FunctionalProperty ;
+             rdfs:domain :person ;
+             rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/person_nationality
+:person_nationality rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :person ;
+                    rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/actor
+:actor rdf:type owl:Class ;
+       rdfs:subClassOf :person ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :isActorOf ;
+                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onClass :movie
+                       ] .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/director
+:director rdf:type owl:Class ;
+          rdfs:subClassOf :person ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :isDirectorOf ;
+                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :movie
+                          ] .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/movie
+:movie rdf:type owl:Class ;
+       rdfs:subClassOf [ rdf:type owl:Class ;
+                         owl:unionOf ( [ rdf:type owl:Restriction ;
+                                         owl:onProperty :movie_genre ;
+                                         owl:hasValue "Action"
+                                       ]
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty :movie_genre ;
+                                         owl:hasValue "Comedy"
+                                       ]
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty :movie_genre ;
+                                         owl:hasValue "Crime"
+                                       ]
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty :movie_genre ;
+                                         owl:hasValue "Drama"
+                                       ]
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty :movie_genre ;
+                                         owl:hasValue "Horror"
+                                       ]
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty :movie_genre ;
+                                         owl:hasValue "Romance"
+                                       ]
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty :movie_genre ;
+                                         owl:hasValue "Sci-Fi"
+                                       ]
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty :movie_genre ;
+                                         owl:hasValue "Thriller"
+                                       ]
+                                     )
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasActor ;
+                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onClass :actor
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasDirector ;
+                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onClass :director
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasWriter ;
+                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onClass :writer
+                       ] ;
+       owl:disjointWith :person .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/person
+:person rdf:type owl:Class ;
+        rdfs:subClassOf [ rdf:type owl:Class ;
+                          owl:unionOf ( [ rdf:type owl:Restriction ;
+                                          owl:onProperty :person_gender ;
+                                          owl:hasValue "Female"
+                                        ]
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty :person_gender ;
+                                          owl:hasValue "Male"
+                                        ]
+                                      )
+                        ] .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/writer
+:writer rdf:type owl:Class ;
+        rdfs:subClassOf :person ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :isWriterOf ;
+                          owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onClass :movie
+                        ] .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/Action
+:Action rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/Comedy
+:Comedy rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/Crime
+:Crime rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/Drama
+:Drama rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/Horror
+:Horror rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/Jennifer_Lawrence
+:Jennifer_Lawrence rdf:type owl:NamedIndividual ,
+                            :actor ;
+                   :isActorOf :hunger_games ;
+                   :person_age "33"^^xsd:nonNegativeInteger ;
+                   :person_gender "Female" ;
+                   :person_name "Jennifer Lawrence" ;
+                   :person_nationality "American" .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/Jesse_Eisenberg
+:Jesse_Eisenberg rdf:type owl:NamedIndividual ,
+                          :actor ,
+                          :writer ;
+                 :isActorOf :now_you_see_me ;
+                 :isWriterOf :now_you_see_me ;
+                 :person_age "40"^^xsd:nonNegativeInteger ;
+                 :person_gender "Male" ;
+                 :person_name "Jesse Eisenberg" ;
+                 :person_nationality "American" .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/Jon_Faverau
+:Jon_Faverau rdf:type owl:NamedIndividual ,
+                      :director ;
+             :isDirectorOf :ironman ;
+             :person_age "57"^^xsd:nonNegativeInteger ;
+             :person_gender "Male" ;
+             :person_name "Jon Faverau" ;
+             :person_nationality "American" .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/Kate_Winslet
+:Kate_Winslet rdf:type owl:NamedIndividual ,
+                       :actor ;
+              :isActorOf :titanic ;
+              :person_age "48"^^xsd:nonNegativeInteger ;
+              :person_gender "Female" ;
+              :person_name "Kate Winslet" ;
+              :person_nationality "British" .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/Leonardo_Dicaprio
+:Leonardo_Dicaprio rdf:type owl:NamedIndividual ,
+                            :actor ;
+                   :isActorOf :titanic ;
+                   :person_age "49"^^xsd:nonNegativeInteger ;
+                   :person_gender "Male" ;
+                   :person_name "Leonardo Dicaprio" ;
+                   :person_nationality "American" .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/Martin_Scorsese
+:Martin_Scorsese rdf:type owl:NamedIndividual ,
+                          :director ;
+                 :isDirectorOf :the_irishman ;
+                 :person_age "81"^^xsd:nonNegativeInteger ;
+                 :person_gender "Male" ;
+                 :person_name "Martin Scorsese" ;
+                 :person_nationality "American" .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/Neil_Gaiman
+:Neil_Gaiman rdf:type owl:NamedIndividual ,
+                      :writer ;
+             :isWriterOf :coraline ;
+             :person_age "63"^^xsd:nonNegativeInteger ;
+             :person_gender "Male" ;
+             :person_name "Neil Gaiman" ;
+             :person_nationality "British" .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/Quentin_Tarantino
+:Quentin_Tarantino rdf:type owl:NamedIndividual ,
+                            :actor ,
+                            :director ,
+                            :writer ;
+                   :isActorOf :kill_bill ;
+                   :isDirectorOf :kill_bill ,
+                                 :pulp_fiction ;
+                   :isWriterOf :kill_bill ,
+                               :pulp_fiction ;
+                   :person_age "61"^^xsd:nonNegativeInteger ;
+                   :person_gender "Male" ;
+                   :person_name "Quentin Tarantino" ;
+                   :person_nationality "American" .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/Rachel_McAdams
+:Rachel_McAdams rdf:type owl:NamedIndividual ,
+                         :actor ;
+                :isActorOf :the_notebook ;
+                :person_age "45"^^xsd:nonNegativeInteger ;
+                :person_gender "Female" ;
+                :person_name "Rachel McAdams" ;
+                :person_nationality "Canadian" .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/Robert_Downey_Jr
+:Robert_Downey_Jr rdf:type owl:NamedIndividual ,
+                           :actor ,
+                           :director ;
+                  :isActorOf :ironman ;
+                  :isDirectorOf :ironman ;
+                  :person_age "59"^^xsd:nonNegativeInteger ;
+                  :person_gender "Male" ;
+                  :person_name "Robert Downey Jr" ;
+                  :person_nationality "American" .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/Romance
+:Romance rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/Sci-Fi
+:Sci-Fi rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/Stan_Lee
+:Stan_Lee rdf:type owl:NamedIndividual ,
+                   :writer ;
+          :isWriterOf :ironman ;
+          :person_age "95"^^xsd:nonNegativeInteger ;
+          :person_gender "Male" ;
+          :person_name "Stan Lee" ;
+          :person_nationality "American" .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/Thriller
+:Thriller rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/Zoe_Saldana
+:Zoe_Saldana rdf:type owl:NamedIndividual ,
+                      :actor ;
+             :isActorOf :avatar ;
+             :person_age "45"^^xsd:nonNegativeInteger ;
+             :person_gender "Female" ;
+             :person_name "Zoe Saldana" ;
+             :person_nationality "American" .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/avatar
+:avatar rdf:type owl:NamedIndividual ,
+                 :movie ;
+        :hasActor :Zoe_Saldana ;
+        :movie_country "USA" ;
+        :movie_genre "Sci-Fi" ;
+        :movie_language "English" ;
+        :movie_title "Avatar" ;
+        :movie_year "2009"^^xsd:nonNegativeInteger .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/coraline
+:coraline rdf:type owl:NamedIndividual ,
+                   :movie ;
+          :hasWriter :Neil_Gaiman ;
+          :movie_country "USA" ;
+          :movie_genre "Horror" ;
+          :movie_language "English" ;
+          :movie_title "Coraline" ;
+          :movie_year "2009"^^xsd:nonNegativeInteger .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/hunger_games
+:hunger_games rdf:type owl:NamedIndividual ,
+                       :movie ;
+              :hasActor :Jennifer_Lawrence ;
+              :movie_country "USA" ;
+              :movie_genre "Action" ,
+                           "Drama" ;
+              :movie_language "English" ;
+              :movie_title "Hunger Games" ;
+              :movie_year "2012"^^xsd:nonNegativeInteger .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/ironman
+:ironman rdf:type owl:NamedIndividual ,
+                  :movie ;
+         :hasActor :Robert_Downey_Jr ;
+         :hasDirector :Jon_Faverau ,
+                      :Robert_Downey_Jr ;
+         :hasWriter :Stan_Lee ;
+         :movie_country "USA" ;
+         :movie_genre "Action" ;
+         :movie_language "English" ;
+         :movie_title "Ironman" ;
+         :movie_year "2008"^^xsd:nonNegativeInteger .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/kill_bill
+:kill_bill rdf:type owl:NamedIndividual ,
+                    :movie ;
+           :hasActor :Quentin_Tarantino ;
+           :hasDirector :Quentin_Tarantino ;
+           :hasWriter :Quentin_Tarantino ;
+           :movie_country "USA" ;
+           :movie_genre "Action" ,
+                        "Comedy" ,
+                        "Thriller" ;
+           :movie_language "English" ;
+           :movie_title "Kill Bill" ;
+           :movie_year "2003"^^xsd:nonNegativeInteger .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/now_you_see_me
+:now_you_see_me rdf:type owl:NamedIndividual ,
+                         :movie ;
+                :hasActor :Jesse_Eisenberg ;
+                :hasWriter :Jesse_Eisenberg ;
+                :movie_country "USA" ;
+                :movie_genre "Comedy" ,
+                             "Crime" ;
+                :movie_language "English" ;
+                :movie_title "Now You See Me" ;
+                :movie_year "2013"^^xsd:nonNegativeInteger .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/pulp_fiction
+:pulp_fiction rdf:type owl:NamedIndividual ,
+                       :movie ;
+              :hasDirector :Quentin_Tarantino ;
+              :hasWriter :Quentin_Tarantino ;
+              :movie_country "USA" ;
+              :movie_genre "Action" ,
+                           "Comedy" ;
+              :movie_language "English" ;
+              :movie_title "Pulp Fiction" ;
+              :movie_year "1994"^^xsd:nonNegativeInteger .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/the_irishman
+:the_irishman rdf:type owl:NamedIndividual ,
+                       :movie ;
+              :hasDirector :Martin_Scorsese ;
+              :movie_country "USA" ;
+              :movie_genre "Crime" ,
+                           "Thriller" ;
+              :movie_language "English" ;
+              :movie_title "The Irishman" ;
+              :movie_year "2019"^^xsd:nonNegativeInteger .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/the_notebook
+:the_notebook rdf:type owl:NamedIndividual ,
+                       :movie ;
+              :hasActor :Rachel_McAdams ;
+              :movie_country "USA" ;
+              :movie_genre "Drama" ,
+                           "Romance" ;
+              :movie_language "English" ;
+              :movie_title "The Notebook" ;
+              :movie_year "2004"^^xsd:nonNegativeInteger .
+
+
+###  http://www.semanticweb.org/noorh/ontologies/2024/4/untitled-ontology-6/titanic
+:titanic rdf:type owl:NamedIndividual ,
+                  :movie ;
+         :hasActor :Kate_Winslet ,
+                   :Leonardo_Dicaprio ;
+         :movie_country "USA" ;
+         :movie_genre "Drama" ,
+                      "Romance" ;
+         :movie_language "English" ;
+         :movie_title "Titanic" ;
+         :movie_year "1997"^^xsd:nonNegativeInteger .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
